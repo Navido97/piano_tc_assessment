@@ -3,6 +3,7 @@ import numpy as np
 import requests
 import json
 from io import StringIO
+from config import aid, api_token, request_url
 
 #Step A1: Load the CSV File
 #File A
@@ -52,9 +53,7 @@ merged_table = pd.merge(data_a, data_b, on='user_id', how='outer')
 merged_table.to_csv('merged_data.csv', index=False)
 
 
-
-API_Integration
-from config import aid, api_token, request_url
+#API Integration
 
 
 # Step 1: Get API Request
