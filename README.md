@@ -10,7 +10,7 @@ This implementation processes user data and integrates with the Piano.io API to 
 ## Key Files
 
 - **[main.py](python/main.py)** - Complete pipeline script
-- **[files/final_user_data.csv](python/files/final_user_data.csv)** - Final output with reconciled user data
+- **[final_user_data.csv](python/files/final_user_data.csv)** - Final output with reconciled user data
 
 ## Process
 
