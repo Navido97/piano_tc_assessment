@@ -23,7 +23,7 @@ data_a = pd.read_csv(StringIO(file_a_csv))
 data_a['user_id'] = data_a['user_id'].str.strip()
 data_a['email'] = data_a['email'].str.strip()
 
-data_a.to_csv('files/file_a.csv', index=False)
+data_a.to_csv('files/client_data_emails.csv', index=False)
 
 
 #Step B1: Load the CSV File
@@ -45,12 +45,12 @@ data_b['user_id'] = data_b['user_id'].str.strip()
 data_b['first_name'] = data_b['first_name'].str.strip()
 data_b['last_name'] = data_b['last_name'].str.strip()
 
-data_b.to_csv('files/file_b.csv', index=False)
+data_b.to_csv('files/client_data_names.csv', index=False)
 
 
 #Step 3 Join on user_id, merge tables and save as new csv
 merged_table = pd.merge(data_a, data_b, on='user_id', how='outer')
-merged_table.to_csv('files/merged_data.csv', index=False)
+merged_table.to_csv('files/client_data_merged.csv', index=False)
 
 
 #API Integration
@@ -86,8 +86,8 @@ for col in df.columns:
         df[col] = df[col].astype(str).str.strip()
         
 #Save to CSV
-df.to_csv('files/piano_users.csv', index=False)
-piano_system = pd.read_csv('files/piano_users.csv')
+df.to_csv('files/piano_system_users.csv', index=False)
+piano_system = pd.read_csv('files/piano_system_users.csv')
 
 # Step 3: Create final table by merging and updating the 'merged' table and the 'piano_system' table
 final = merged_table.copy()
@@ -103,7 +103,7 @@ final = final.sort_values('email')
 final = final.reset_index(drop=True)
 
 # Create final CSV File
-final.to_csv('files/final_table.csv', index=False)
+final.to_csv('files/final_user_data.csv', index=False)
 
 #Final Output
 final
