@@ -208,3 +208,10 @@ __marimo__/
 
 # Custom config file with sensitive credentials
 config.py
+
+# Java credentials
+Config.java
+
+# Java compiled files
+*.class
+*.jar
