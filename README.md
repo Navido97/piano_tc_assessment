@@ -5,7 +5,7 @@
 1. Copy `config_template.py` to `config.py` and add Piano.io credentials
 2. Run: `python main.py`
 
-**Output:** [final_user_data.csv](python/files/final_user_data.csv)
+**Output:** [final_user_data.csv](python/files/final_user_data.csv) (sorted by email)
 
 ## Java Implementation
 
