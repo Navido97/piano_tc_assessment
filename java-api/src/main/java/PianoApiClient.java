@@ -30,7 +30,7 @@ public class PianoApiClient {
             convertJsonToCsv(response.body());
             
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
     
@@ -43,50 +43,47 @@ public class PianoApiClient {
             new File("files").mkdir();
             
             // Create CSV writer
-            PrintWriter writer = new PrintWriter(new FileWriter("files/piano_api_response.csv"));
-            
-            // Write CSV header with the columns you specified
-            writer.println("first_name,last_name,personal_name,email,uid,image1,create_date,display_name,reset_password_email_sent,custom_fields");
-            
-            // Extract users array from JSON response
-            JsonNode usersNode = rootNode.get("users");
-            
-            if (usersNode != null && usersNode.isArray()) {
-                for (JsonNode userNode : usersNode) {
-                    // Extract each field, handling null values
-                    String firstName = getStringValue(userNode, "first_name");
-                    String lastName = getStringValue(userNode, "last_name");
-                    String personalName = getStringValue(userNode, "personal_name");
-                    String email = getStringValue(userNode, "email");
-                    String uid = getStringValue(userNode, "uid");
-                    String image1 = getStringValue(userNode, "image1");
-                    String createDate = getStringValue(userNode, "create_date");
-                    String displayName = getStringValue(userNode, "display_name");
-                    String resetPasswordEmailSent = getBooleanValue(userNode, "reset_password_email_sent");
-                    String customFields = getArrayValue(userNode, "custom_fields");
-                    
-                    // Write CSV row (escaping commas and quotes)
-                    writer.printf("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s%n",
-                        escapeForCsv(firstName),
-                        escapeForCsv(lastName),
-                        escapeForCsv(personalName),
-                        escapeForCsv(email),
-                        escapeForCsv(uid),
-                        escapeForCsv(image1),
-                        escapeForCsv(createDate),
-                        escapeForCsv(displayName),
-                        escapeForCsv(resetPasswordEmailSent),
-                        escapeForCsv(customFields)
-                    );
+            try (PrintWriter writer = new PrintWriter(new FileWriter("files/piano_api_response.csv"))) {
+                
+                // Write CSV header with the columns you specified
+                writer.println("first_name,last_name,personal_name,email,uid,image1,create_date,display_name,reset_password_email_sent,custom_fields");
+                
+                // Extract users array from JSON response
+                JsonNode usersNode = rootNode.get("users");
+                
+                if (usersNode != null && usersNode.isArray()) {
+                    for (JsonNode userNode : usersNode) {
+                        // Extract each field, handling null values
+                        String firstName = getStringValue(userNode, "first_name");
+                        String lastName = getStringValue(userNode, "last_name");
+                        String personalName = getStringValue(userNode, "personal_name");
+                        String email = getStringValue(userNode, "email");
+                        String uid = getStringValue(userNode, "uid");
+                        String image1 = getStringValue(userNode, "image1");
+                        String createDate = getStringValue(userNode, "create_date");
+                        String displayName = getStringValue(userNode, "display_name");
+                        String resetPasswordEmailSent = getBooleanValue(userNode, "reset_password_email_sent");
+                        String customFields = getArrayValue(userNode, "custom_fields");
+                        
+                        // Write CSV row (escaping commas and quotes)
+                        writer.printf("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s%n",
+                            escapeForCsv(firstName),
+                            escapeForCsv(lastName),
+                            escapeForCsv(personalName),
+                            escapeForCsv(email),
+                            escapeForCsv(uid),
+                            escapeForCsv(image1),
+                            escapeForCsv(createDate),
+                            escapeForCsv(displayName),
+                            escapeForCsv(resetPasswordEmailSent),
+                            escapeForCsv(customFields)
+                        );
+                    }
                 }
             }
             
-            writer.close();
-            System.out.println("Data successfully saved to files/piano_api_response.csv");
-            
         } catch (Exception e) {
-            System.err.println("Error converting JSON to CSV: " + e.getMessage());
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
     

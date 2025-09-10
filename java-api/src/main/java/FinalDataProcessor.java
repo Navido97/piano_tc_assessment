@@ -7,10 +7,9 @@ public class FinalDataProcessor {
         try {
             // Read both CSV files and create the final merged data
             createFinalUserData();
-            
         } catch (Exception e) {
-            System.err.println("Error processing final user data: " + e.getMessage());
-            e.printStackTrace();
+            // Just rethrow or silently fail depending on your preference
+            throw new RuntimeException(e);
         }
     }
     
@@ -26,8 +25,6 @@ public class FinalDataProcessor {
         
         // Write final_user_data.csv
         writeFinalData(clientData, "files/final_user_data.csv");
-        
-        System.out.println("Final user data successfully saved to files/final_user_data.csv");
     }
     
     private static Map<String, UserRecord> readClientData(String filename) throws IOException {
@@ -75,7 +72,6 @@ public class FinalDataProcessor {
             }
             
             if (emailIndex == -1 || uidIndex == -1) {
-                System.err.println("Warning: Could not find email and/or uid columns in piano_api_response.csv");
                 return emailToUidMap;
             }
             
@@ -103,7 +99,6 @@ public class FinalDataProcessor {
             if (emailToUidMap.containsKey(email)) {
                 String newUid = emailToUidMap.get(email);
                 record.userId = newUid; // Override the user_id with uid from Piano API
-                System.out.println("Updated user_id for email " + email + " to " + newUid);
             }
         }
     }
