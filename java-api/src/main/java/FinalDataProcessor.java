@@ -113,8 +113,12 @@ public class FinalDataProcessor {
             // Write header
             writer.println("user_id,email,first_name,last_name");
             
-            // Write data rows
-            for (UserRecord record : clientData.values()) {
+            // Sort records by email before writing
+            List<UserRecord> sortedRecords = new ArrayList<>(clientData.values());
+            sortedRecords.sort(Comparator.comparing(record -> record.email));
+            
+            // Write data rows in sorted order
+            for (UserRecord record : sortedRecords) {
                 writer.printf("%s,%s,%s,%s%n", 
                     escapeForCsv(record.userId),
                     escapeForCsv(record.email),
