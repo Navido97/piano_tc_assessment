@@ -1,4 +1,3 @@
-package java;
 
 public class ConfigTemplate {
     public static final String AID = "insert-aid-in-here";
