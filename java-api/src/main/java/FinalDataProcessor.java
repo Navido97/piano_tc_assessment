@@ -5,10 +5,8 @@ public class FinalDataProcessor {
     
     public static void main(String[] args) {
         try {
-            // Read both CSV files and create the final merged data
             createFinalUserData();
         } catch (Exception e) {
-            // Just rethrow or silently fail depending on your preference
             throw new RuntimeException(e);
         }
     }
