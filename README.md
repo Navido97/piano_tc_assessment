@@ -2,14 +2,14 @@
 
 ## Python Implementation
 
-1. Copy `config_template.py` to `config.py` and add Piano.io credentials
+1. Duplicate `config_template.py`, change the name to `config.py` and add Piano.io credentials
 2. Run: `python main.py`
 
 **Output:** [final_user_data.csv](python/files/final_user_data.csv) (sorted by email)
 
 ## Java Implementation
 
-1. Add Piano.io credentials to `Config.java`
+1. Duplicate `ConfigTemplate.java`, change the name to `Config.java` and add Piano.io credentials
 2. Run: `mvn compile`
 3. Run: `mvn exec:java -Dexec.mainClass="UserDataProcessor"`
 4. Run: `mvn exec:java -Dexec.mainClass="PianoApiClient"`
